@@ -1,18 +1,38 @@
+/* eslint-disable no-duplicate-case */
+/* eslint-disable no-case-declarations */
+
 import React from 'react';
+import { Grid, AppBar, CssBaseline, Toolbar, Typography } from '@material-ui/core';
+import { Link} from 'react-router-dom';
+
+import { connect } from 'react-redux';
 
 
-function Header() {
+const Header = (props) =>{
+    console.log('props in header', props);
     return (
         <>
-        <header>
-            <nav>
-                <h1>
-                    E-Commerce
-                </h1>
-            </nav>
-        </header>
+            <CssBaseline />
+            <AppBar position="static" elevation={0} className="MuiAppBar-root">
+                <Toolbar className="">
+                    <Grid container justify="space-between" alignItems="center">
+                        <Typography variant="h4">Our Store</Typography>
+
+                        <Link to="/cart">Cart ({props.cart.count})</Link>
+
+                    </Grid>
+                </Toolbar>
+
+            </AppBar>
         </>
     )
 }
 
-export default Header;
+const mapStateToProps = state => {
+    return state;
+}
+
+
+export default connect(mapStateToProps)(Header)
+
+

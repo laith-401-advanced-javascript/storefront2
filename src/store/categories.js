@@ -1,25 +1,23 @@
 let initialState = {
     categories: [
         {
-            name: 'Adidas',
+            name: 'ELECTRONICS',
             displayName: 'Adidas display',
-            desciption: 'this is Adidas Discription'
-        },
+            desciption: 'Category Description Goes Here'
+
+             },
         {
-            name: 'Gucci',
+            name: 'FOOD',
             displayName: 'Gucci display',
-            desciption: 'this is Gucci Discription'
+            desciption: 'Category Description Goes Here'
         },
-        {
-            name: 'Polo',
-            displayName: 'Polo display',
-            desciption: 'this is Polo Discription'
-        },
+
     ],
     current: '',
 };
 
 //reducer 
+// eslint-disable-next-line
 export default (state = initialState, action) => {
     let { type, payload } = action;
 
