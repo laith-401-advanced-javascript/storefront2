@@ -5,7 +5,9 @@ import Footer from './component/footer.js';
 import Categories from './component/categories.js';
 import Products from './component/products.js';
 
-// import './style.scss';
+import './app.scss';
+
+
 
 class App extends React.Component {
     render() {
