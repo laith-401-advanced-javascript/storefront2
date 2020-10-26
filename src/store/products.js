@@ -1,24 +1,21 @@
 let initialState = {
-    products: {
-        Adidas : {
-            name: ['shose', 'bags'],
-            desciption: ['this is Adidas shose', 'this is Adidas bags', ],
-            inventoryCount: [2, 4,],
-            price: ['$100', '$200']
+    products: [
+         {
+            name: 'shoes',
+            description: 'this is shoes desctiption',
+            category: 'Adidas'
         },
-        Gucci : {
-            name: [ 'cologne', 'perfume'],
-            desciption: ['this is Gucci cologne', 'this is Gucci perfume'],
-            inventoryCount: [6, 10],
-            price: ['$30', '$40'],
+        {
+            name: 'bags',
+            description: 'this is bags desctiption',
+            category: 'Polo'
         },
-        Polo: { 
-            name: ['T-shert', 'jacket'],
-            desciption: ['this is T-shert Polo', 'this is jacket Polo'],
-            inventoryCount: [ 20, 22],
-            price: ['$50', '$120']
-        }
-    },
+        {
+            name: 'sokes',
+            description: 'this is sokes desctiption',
+            category: 'Gucci'
+        },
+    ],
     results: [],
 }
 
@@ -28,8 +25,11 @@ export default (state = initialState, action) => {
     switch (type) {
         case 'choose':
             let products = state.products;
-            let results = state.products[payload];
-            // console.log('results >>',results);
+            let results = state.products.filter((item,idx)=> {
+                console.log('payload >>', payload);
+                return item.category === payload.name;
+            });
+            console.log('results >>',results);
             return { results, products };
 
         default:

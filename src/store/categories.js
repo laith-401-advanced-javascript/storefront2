@@ -1,27 +1,39 @@
 let initialState = {
-    categories: {
-        name: ['Adidas', 'Gucci', 'Polo'],
-        displayName: ['Adidas display', 'Gucci display', 'Polo display'],
-        desciption: ['this is Adidas Discription', 'this is Gucci Discription', 'this is Polo Discription']
-
-    },
+    categories: [
+        {
+            name: 'Adidas',
+            displayName: 'Adidas display',
+            desciption: 'this is Adidas Discription'
+        },
+        {
+            name: 'Gucci',
+            displayName: 'Gucci display',
+            desciption: 'this is Gucci Discription'
+        },
+        {
+            name: 'Polo',
+            displayName: 'Polo display',
+            desciption: 'this is Polo Discription'
+        },
+    ],
     current: '',
 };
 
-// name: {  'Adidas', displayName: 'Adidas display', desciption: 'this is Adidas Discription' },
-// { name: 'Gucci', displayName: 'Gucci display', desciption: 'this is Gucci Discription' },
-// { name: 'Polo', displayName: 'Polo display', desciption: 'this is Polo Discription' },
-
-
 //reducer 
-
 export default (state = initialState, action) => {
     let { type, payload } = action;
 
     switch (type) {
         case 'change':
             let current = payload;
-            let categories = state.categories;
+            let categories = state.categories.map((item,idx)=> {
+                if(item.name === payload) {
+                    return {name: item.name ,
+                         displayName : item.displayName ,
+                          desciption: item.desciption}
+                }
+                return item ;
+            });
             return { categories, current };
 
         default:
