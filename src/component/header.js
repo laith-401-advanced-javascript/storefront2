@@ -1,8 +1,15 @@
+/* eslint-disable no-duplicate-case */
+/* eslint-disable no-case-declarations */
+
 import React from 'react';
 import { Grid, AppBar, CssBaseline, Toolbar, Typography } from '@material-ui/core';
+import { Link} from 'react-router-dom';
+
+import { connect } from 'react-redux';
 
 
-function Header() {
+const Header = (props) =>{
+    console.log('props in header', props);
     return (
         <>
             <CssBaseline />
@@ -10,7 +17,9 @@ function Header() {
                 <Toolbar className="">
                     <Grid container justify="space-between" alignItems="center">
                         <Typography variant="h4">Our Store</Typography>
-                        <Typography variant="h6">Cart ()</Typography>
+
+                        <Link to="/cart">Cart ({props.cart.count})</Link>
+
                     </Grid>
                 </Toolbar>
 
@@ -19,4 +28,11 @@ function Header() {
     )
 }
 
-export default Header;
+const mapStateToProps = state => {
+    return state;
+}
+
+
+export default connect(mapStateToProps)(Header)
+
+

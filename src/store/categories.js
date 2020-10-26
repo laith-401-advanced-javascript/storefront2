@@ -17,6 +17,7 @@ let initialState = {
 };
 
 //reducer 
+// eslint-disable-next-line
 export default (state = initialState, action) => {
     let { type, payload } = action;
 

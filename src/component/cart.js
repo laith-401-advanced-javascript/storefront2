@@ -3,11 +3,11 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { chooseList } from '../store/products.js';
-import {addToCart} from '../store/cart.js'
-
-import { Box, CardMedia, Container, Grid, Card, CardContent, CardActions, Button, Typography } from '@material-ui/core';
+import { addToCart } from '../store/cart.js'
+import { removeFromCart } from '../store/cart.js'
+import {  CardMedia, Container, Grid, Card, CardContent, CardActions, Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -46,82 +46,67 @@ const useStyles = makeStyles((theme) => ({
         padding: '64px 0px 48px'
     },
     jss7: {
-        paddingTop: '64px',
-        paddingBottom: '64px'
+        paddingTop: '24px',
+        paddingBottom: '24px'
     }
 }));
 
 
-const Status = props => {
-    console.log('props >>>2222', props);
+
+const Cart = props => {
 
     const classes = useStyles();
+    // console.log('Props in Cart >>', props);
 
     return (
-        <section className="product">
-            <ul>
-
-                <Box className={classes.jss5} textAlign="center">
-                    <Typography variant="h2" color="textPrimary">
-                        {props.activator.current.name}
-
-                    </Typography>
-                    <Typography variant="h6" color="textSecondary">
-                        {props.activator.current.desciption}
-                    </Typography>
-                </Box>
-
-                {props.list.results.map((item, idx) => {
-                    return (
-
+        <>
+            {props.cart.cart.map((item,idx) => {
+                return (
+                    <>
                         <Container key={idx} maxWidth="md" component="main">
 
                             <Grid className={classes.jss7} container spacing={0} direction="row" justify="center" alignItems="center">
-
-                                <Grid key={idx} className={classes.jss8} container item xs={12} sm={6} lg={4} >
-
-
+                                <Grid className={classes.jss8} container item xs={12} sm={6} lg={2} >
                                     <Card key={idx} className={classes.card}>
 
                                         <CardMedia key={idx}
                                             className={classes.media}
                                             image={item.image}
                                             title={item.name}
-                                           
                                         />
                                         <CardContent >
-                                            <Typography  variant="h5" color="textPrimary">
+
+                                            <Typography variant="h5" color="textPrimary">
                                                 {item.name}
                                             </Typography>
-                                            <Typography  color="textSecondary">
-                                                {item.description}
-                                            </Typography>
+
                                         </CardContent>
 
                                         <CardActions>
-                                            <Button key={idx} style={{ fontSize: '0.8125rem' }} color="primary"  onClick={() =>{props.addToCart(item)}} >Add to Cart</Button>
+                                            <Button key={idx}  style={{ fontSize: '0.8125rem' }} color="primary" onClick={() => { props.removeFromCart(item) }} >X</Button>
                                         </CardActions>
+
                                     </Card>
-
                                 </Grid>
-
                             </Grid>
                         </Container>
 
-                    );
+                    </>
+                )
+            }
 
-                })}
-            </ul>
-        </section>
+            )}
 
+        </>
     )
 }
 
 
+
 const mapStateToProps = state => {
     return state;
-};
+}
 
-const mapDespatchRoProps = { chooseList, addToCart };
+const mapDispatchToProps = { addToCart, removeFromCart }
 
-export default connect(mapStateToProps, mapDespatchRoProps)(Status)
+export default connect(mapStateToProps, mapDispatchToProps)(Cart)

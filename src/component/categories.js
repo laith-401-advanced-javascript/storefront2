@@ -1,5 +1,6 @@
+/* eslint-disable no-duplicate-case */
+/* eslint-disable no-case-declarations */
 import React from 'react';
-
 import { connect } from 'react-redux';
 import { change } from '../store/categories.js';
 import { chooseList } from '../store/products.js';
@@ -36,8 +37,8 @@ const Status = props => {
 
                 <ButtonGroup variant="text" color="primary" aria-label="text primary button group">
 
-                    {props.current.categories.map(item => (
-                        <Button key={item.name} onClick={() => {
+                    {props.current.categories.map((item,idx) => (
+                        <Button key={idx} onClick={() => {
                             props.change(item);
                             props.chooseList(item);
 

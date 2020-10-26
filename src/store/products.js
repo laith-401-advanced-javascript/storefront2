@@ -2,7 +2,7 @@ let initialState = {
     products: [
         {
             category: "ELECTRONICS",
-            name: "TV",
+            name: " SAMSUNG TV",
             description: "SAMSUNG TV 50 INCH ",
             inventoryCount: 200,
             price: "$100",
@@ -10,7 +10,7 @@ let initialState = {
           },
           {
             category: "ELECTRONICS",
-            name: "TV",
+            name: " LG TV",
             description: "LG TV 40 inch",
             inventoryCount: 40,
             price: "$200",
@@ -37,7 +37,7 @@ let initialState = {
     ],
     results: [],
 }
-
+// eslint-disable-next-line
 export default (state = initialState, action) => {
     let { type, payload } = action;
 
