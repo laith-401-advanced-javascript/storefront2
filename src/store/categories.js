@@ -1,50 +1,55 @@
+import superagent from 'superagent' ;
+
+
 let initialState = {
-    categories: [
-        {
-            name: 'ELECTRONICS',
-            displayName: 'Adidas display',
-            desciption: 'Category Description Goes Here'
-
-             },
-        {
-            name: 'FOOD',
-            displayName: 'Gucci display',
-            desciption: 'Category Description Goes Here'
-        },
-
-    ],
-    current: '',
+    results: [],
+    activeCategory: '',
 };
 
 //reducer 
 // eslint-disable-next-line
 export default (state = initialState, action) => {
-    let { type, payload } = action;
+    const { type, payload } = action;
 
     switch (type) {
+        case 'GETCATEGORIES':
+            // state.categories = [...payload.results]
+            // return {...state};
+            return payload;
         case 'change':
-            let current = payload;
-            let categories = state.categories.map((item,idx)=> {
-                if(item.name === payload) {
-                    return {name: item.name ,
-                         displayName : item.displayName ,
-                          desciption: item.desciption}
-                }
-                return item ;
-            });
-            return { categories, current };
+            console.log('pay',payload);
+            state.activeCategory = payload;
+            return {...state };
 
         default:
             return state;
     }
 }
 
-
 // action 
-export const change = (activated) => {
+export const change = (name) => {
     return {
         type: 'change',
-        payload: activated
+        payload: name
 
+    }
+}
+
+
+
+export const getRemoteCategories =  () => (dispatch) => {
+    var api = 'https://rowaid-server.herokuapp.com/api/v1/categories';
+
+    return superagent.get(api)
+    .then(data => {
+        dispatch(getActionCategories(data.body));
+    })
+}
+
+
+export const getActionCategories = payload => {
+    return {
+        type: 'GETCATEGORIES'  ,
+        payload : payload
     }
 }

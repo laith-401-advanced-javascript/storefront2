@@ -1,16 +1,20 @@
 /* eslint-disable no-duplicate-case */
 /* eslint-disable no-case-declarations */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { chooseList } from '../store/products.js';
-import {addToCart} from '../store/cart.js'
+import * as actionsCart from '../store/cart.js'
+import * as actions from '../store/products';
 
 import { Box, CardMedia, Container, Grid, Card, CardContent, CardActions, Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 
 const useStyles = makeStyles((theme) => ({
+
+
+
     '@global': {
         ul: {
             margin: 0,
@@ -53,75 +57,96 @@ const useStyles = makeStyles((theme) => ({
 
 
 const Status = props => {
-    console.log('props >>>2222', props);
+
+    useEffect(() => {
+        props.getProduct();
+    }, []);
+
+    const updateFunctions = element => {
+        props.addToCart(element)
+        // props.decrementInStock(element)
+        props.updateRemoteCart(props.cartData.cartItem)
+      }
 
     const classes = useStyles();
+    console.log('props in product >>', props);
+    // console.log('props in  >>', props.data.results.name);
 
     return (
         <section className="product">
             <ul>
 
-                <Box className={classes.jss5} textAlign="center">
+                {/* <Box className={classes.jss5} textAlign="center">
                     <Typography variant="h2" color="textPrimary">
-                        {props.activator.current.name}
-
+                         {props.productData.name} 
                     </Typography>
                     <Typography variant="h6" color="textSecondary">
-                        {props.activator.current.desciption}
+                        {props.productData.desciption}
                     </Typography>
-                </Box>
-
-                {props.list.results.map((item, idx) => {
-                    return (
-
-                        <Container key={idx} maxWidth="md" component="main">
-
-                            <Grid className={classes.jss7} container spacing={0} direction="row" justify="center" alignItems="center">
-
-                                <Grid key={idx} className={classes.jss8} container item xs={12} sm={6} lg={4} >
+                </Box> */}
 
 
-                                    <Card key={idx} className={classes.card}>
+                {props.productData.results.map((item, idx) => {
+                    if (item.category === props.categorieData.activeCategory) {
+                        return (
 
-                                        <CardMedia key={idx}
-                                            className={classes.media}
-                                            image={item.image}
-                                            title={item.name}
-                                           
-                                        />
-                                        <CardContent >
-                                            <Typography  variant="h5" color="textPrimary">
-                                                {item.name}
-                                            </Typography>
-                                            <Typography  color="textSecondary">
-                                                {item.description}
-                                            </Typography>
-                                        </CardContent>
+                            <Container key={idx} maxWidth="md" component="main">
 
-                                        <CardActions>
-                                            <Button key={idx} style={{ fontSize: '0.8125rem' }} color="primary"  onClick={() =>{props.addToCart(item)}} >Add to Cart</Button>
-                                        </CardActions>
-                                    </Card>
+                                <Grid className={classes.jss7} container spacing={0} direction="row" justify="center" alignItems="center">
+
+                                    <Grid key={idx} className={classes.jss8} container item xs={12} sm={6} lg={4} >
+
+
+                                        <Card key={idx} className={classes.card}>
+
+                                            <CardMedia key={idx}
+                                                className={classes.media}
+                                                image={item.img}
+                                                title={item.name}
+
+                                            />
+                                            <CardContent >
+                                                <Typography variant="h5" color="textPrimary">
+                                                    {item.name}
+                                                </Typography>
+                                                <Typography color="textSecondary">
+                                                    {item.description}
+                                                </Typography>
+                                            </CardContent>
+
+                                            <CardActions>
+                                                <Button key={idx} style={{ fontSize: '0.8125rem' }} color="primary" onClick={() => updateFunctions(item)}  >Add to Cart</Button>
+                                            </CardActions>
+                                        </Card>
+
+                                    </Grid>
 
                                 </Grid>
+                            </Container>
 
-                            </Grid>
-                        </Container>
-
-                    );
-
+                        );
+                    }
                 })}
             </ul>
         </section>
-
     )
 }
 
 
-const mapStateToProps = state => {
-    return state;
-};
+const mapStateToProps = state => ({
+    // return state;
+    productData: state.productData,
+    categorieData: state.categorieData,
+    cartData: state.cartData
 
-const mapDespatchRoProps = { chooseList, addToCart };
+});
+
+const mapDespatchRoProps = (dispatch) => ({
+    // decrementInStock: (product) => dispatch(actions.decrementInStock(product)),
+    addToCart: (product) => dispatch(actionsCart.addAction(product)),
+    updateRemoteCart: (product) => dispatch(actionsCart.updateRemoteCart(product)),
+    getProduct: () => dispatch(actions.getRemoteProducts())
+});
+
 
 export default connect(mapStateToProps, mapDespatchRoProps)(Status)

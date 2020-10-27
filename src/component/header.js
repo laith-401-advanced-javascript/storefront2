@@ -18,7 +18,7 @@ const Header = (props) =>{
                     <Grid container justify="space-between" alignItems="center">
                         <Typography variant="h4">Our Store</Typography>
 
-                        <Link to="/cart">Cart ({props.cart.count})</Link>
+                        <Link to="/cart">Cart ({props.cartData.count})</Link>
 
                     </Grid>
                 </Toolbar>
