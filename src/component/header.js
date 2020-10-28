@@ -3,22 +3,24 @@
 
 import React from 'react';
 import { Grid, AppBar, CssBaseline, Toolbar, Typography } from '@material-ui/core';
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 
 
-const Header = (props) =>{
-    console.log('props in header', props);
+const Header = (props) => {
+    // console.log('props in header', props);
     return (
         <>
             <CssBaseline />
             <AppBar position="static" elevation={0} className="MuiAppBar-root">
                 <Toolbar className="">
                     <Grid container justify="space-between" alignItems="center">
-                        <Typography variant="h4">Our Store</Typography>
+                        <Typography  variant="h4">
+                            <Link to="/" variant="h4">Our Store</Link>
+                        </Typography>
 
-                        <Link to="/cart">Cart ({props.cartData.count})</Link>
+                        <Link to="/cart">Cart ({props.cartData.cartItem.length})</Link>
 
                     </Grid>
                 </Toolbar>

@@ -84,7 +84,7 @@ const Cart = props => {
 
                                         <CardMedia key={idx}
                                             className={classes.media}
-                                            image={element.image}
+                                            image={element.img}
                                             title={element.name}
                                         />
                                         <CardContent >

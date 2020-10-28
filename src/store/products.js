@@ -5,14 +5,6 @@ let initialState = {
     results: [],
 }
 
-// {
-//     category: "ELECTRONICS",
-//     name: " SAMSUNG TV",
-//     description: "SAMSUNG TV 50 INCH ",
-//     inventoryCount: 200,
-//     price: "$100",
-//     image: 'https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6268/6268403_sd.jpg'
-//   },
 
 // eslint-disable-next-line
 export default (state = initialState, action) => {
@@ -31,11 +23,14 @@ export default (state = initialState, action) => {
             // console.log('results >>',results);
             return { results, products };
 
-        // case 'DEC-CART':
-        //     state.products.forEach((element) => {
-        //         if (element.name === payload.name) element.inStock--;
-        //     });
-        //     return { ...state };
+        case 'DEC-CART':
+            // console.log('state  >>' , state.results);
+
+            state.results.forEach((element) => {
+                // console.log('element >>' , element);
+                if (element.name === payload.name) element.inStock--;
+            });
+            return { ...state };
 
         default:
             return state;
@@ -53,7 +48,7 @@ export const chooseList = (clicked) => {
 
 
 export const getRemoteProducts = () => (dispatch) => {
-    var apiProduct = 'https://rowaid-server.herokuapp.com/api/v1/products';
+    var apiProduct = 'https://todos-api1.herokuapp.com/api/v1/products';
     return superagent.get(apiProduct)
         .then(data => {
             dispatch(getActionProducts(data.body));
@@ -68,10 +63,10 @@ export const getActionProducts = payload => {
     }
 }
 
-// export const decrementInStock = (name) => {
-//     return {
-//         type: 'DEC-CART',
-//         payload: name
-//     }
-// }
+export const decrementInStock = (name) => {
+    return {
+        type: 'DEC-CART',
+        payload: name
+    }
+}
 

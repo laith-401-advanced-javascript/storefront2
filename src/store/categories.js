@@ -17,7 +17,7 @@ export default (state = initialState, action) => {
             // return {...state};
             return payload;
         case 'change':
-            console.log('pay',payload);
+            // console.log('pay',payload);
             state.activeCategory = payload;
             return {...state };
 
@@ -38,7 +38,7 @@ export const change = (name) => {
 
 
 export const getRemoteCategories =  () => (dispatch) => {
-    var api = 'https://rowaid-server.herokuapp.com/api/v1/categories';
+    var api = 'https://todos-api1.herokuapp.com/api/v1/categories';
 
     return superagent.get(api)
     .then(data => {

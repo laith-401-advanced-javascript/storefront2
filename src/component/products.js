@@ -63,13 +63,13 @@ const Status = props => {
     }, []);
 
     const updateFunctions = element => {
-        props.addToCart(element)
-        // props.decrementInStock(element)
+        props.addToCart(element) //working
+        props.decrementInStock(element)
         props.updateRemoteCart(props.cartData.cartItem)
       }
 
     const classes = useStyles();
-    console.log('props in product >>', props);
+    // console.log('props in product >>', props);
     // console.log('props in  >>', props.data.results.name);
 
     return (
@@ -87,6 +87,7 @@ const Status = props => {
 
 
                 {props.productData.results.map((item, idx) => {
+                    // console.log('item ><<<<',item);
                     if (item.category === props.categorieData.activeCategory) {
                         return (
 
@@ -111,6 +112,9 @@ const Status = props => {
                                                 </Typography>
                                                 <Typography color="textSecondary">
                                                     {item.description}
+                                                </Typography>
+                                                <Typography color="textSecondary">
+                                                inStock :  {item.inStock}
                                                 </Typography>
                                             </CardContent>
 
@@ -142,7 +146,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDespatchRoProps = (dispatch) => ({
-    // decrementInStock: (product) => dispatch(actions.decrementInStock(product)),
+    decrementInStock: (product) => dispatch(actions.decrementInStock(product)),
     addToCart: (product) => dispatch(actionsCart.addAction(product)),
     updateRemoteCart: (product) => dispatch(actionsCart.updateRemoteCart(product)),
     getProduct: () => dispatch(actions.getRemoteProducts())
