@@ -3,12 +3,11 @@
 
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { addToCart } from '../store/cart.js'
-import { removeFromCart } from '../store/cart.js'
 import { CardMedia, Container, Grid, Card, CardContent, CardActions, Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import * as actions from '../store/cart';
+import * as actionsProduct from '../store/products';
 
 
 
@@ -66,7 +65,7 @@ const Cart = props => {
 
     const deleteProductsfromCart = (idx, element) => {
         props.removeFromCart(idx);
-        // props.incrementInStock(element);
+        props.incrementInStock(element);
     }
 
     const classes = useStyles();
@@ -122,10 +121,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch, getState) => ({
     getCartAPI: () => dispatch(actions.getCartAPI()),
-    createCart: () => dispatch(actions.createCart()),
-    // updateRemoteCart: (product) => dispatch(actions.updateRemoteCart(product)),
     removeFromCart: (productidx) => dispatch(actions.removeFromCart(productidx)),
-    // incrementInStock: (product) => dispatch(actionsProd.incrementInStock(product))
+    incrementInStock: (product) => dispatch(actionsProduct.incrementInStock(product)),
 });
 
 

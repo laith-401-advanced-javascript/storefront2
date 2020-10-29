@@ -2,11 +2,7 @@
 /* eslint-disable no-case-declarations */
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-// import { change } from '../store/categories.js';
-// import { chooseList } from '../store/products.js';
 import * as actions from '../store/categories';
-// import * as productAction from '../store/products';
-
 import { Box, ButtonGroup, Button, CssBaseline } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles'
@@ -33,13 +29,9 @@ const Status = props => {
 
     useEffect(() => {
         props.get();
-        
-
     }, []);
+
     const classes = useStyles();
-
-    console.log('props in categories >>', props);
-
     return (
         <>
             <CssBaseline />
@@ -54,7 +46,7 @@ const Status = props => {
                     
                         }}>
                                 {record.name}
-                            </Button>
+                         </Button>
                     )) }
 
                 </ButtonGroup>
@@ -70,11 +62,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    // chooseList, 
     change:  (name) => dispatch(actions.change(name)),
     get: () => dispatch(actions.getRemoteCategories())
-    // getActionProducts: (name) => dispatch(productAction.getActionProducts(name))
-
 });
 
 

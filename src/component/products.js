@@ -3,7 +3,6 @@
 
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { chooseList } from '../store/products.js';
 import * as actionsCart from '../store/cart.js'
 import * as actions from '../store/products';
 
@@ -12,7 +11,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 
 const useStyles = makeStyles((theme) => ({
-
 
 
     '@global': {
@@ -69,21 +67,17 @@ const Status = props => {
       }
 
     const classes = useStyles();
-    // console.log('props in product >>', props);
-    // console.log('props in  >>', props.data.results.name);
+// console.log('propppps in p', props);
 
     return (
         <section className="product">
             <ul>
 
-                {/* <Box className={classes.jss5} textAlign="center">
+                 <Box className={classes.jss5} textAlign="center">
                     <Typography variant="h2" color="textPrimary">
-                         {props.productData.name} 
+                         {props.categorieData.activeCategory} 
                     </Typography>
-                    <Typography variant="h6" color="textSecondary">
-                        {props.productData.desciption}
-                    </Typography>
-                </Box> */}
+                </Box> 
 
 
                 {props.productData.results.map((item, idx) => {
