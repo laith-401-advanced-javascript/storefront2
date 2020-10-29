@@ -5,13 +5,14 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import * as actionsCart from '../store/cart.js'
 import * as actions from '../store/products';
+import * as actionsDetails from '../store/productDetails';
 
 import { Box, CardMedia, Container, Grid, Card, CardContent, CardActions, Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
-
 
     '@global': {
         ul: {
@@ -64,24 +65,24 @@ const Status = props => {
         props.addToCart(element) //working
         props.decrementInStock(element)
         props.updateRemoteCart(props.cartData.cartItem)
-      }
+    }
 
     const classes = useStyles();
-// console.log('propppps in p', props);
+    console.log('propppps in p', props);
 
     return (
         <section className="product">
             <ul>
 
-                 <Box className={classes.jss5} textAlign="center">
+                <Box className={classes.jss5} textAlign="center">
                     <Typography variant="h2" color="textPrimary">
-                         {props.categorieData.activeCategory} 
+                        {props.categorieData.activeCategory}
                     </Typography>
-                </Box> 
+                </Box>
 
 
                 {props.productData.results.map((item, idx) => {
-                    // console.log('item ><<<<',item);
+                    console.log('item ><<<<', item);
                     if (item.category === props.categorieData.activeCategory) {
                         return (
 
@@ -108,12 +109,17 @@ const Status = props => {
                                                     {item.description}
                                                 </Typography>
                                                 <Typography color="textSecondary">
-                                                inStock :  {item.inStock}
+                                                    inStock :  {item.inStock}
                                                 </Typography>
                                             </CardContent>
 
                                             <CardActions>
-                                                <Button key={idx} style={{ fontSize: '0.8125rem' }} color="primary" onClick={() => updateFunctions(item)}  >Add to Cart</Button>
+                                                <Button key={idx} style={{ fontSize: '0.8125rem' }} color="primary" onClick={() => updateFunctions(item)}  >ADD TO CART</Button>
+
+                                                <Link to="/product">
+                                                    <Button key={idx} style={{ fontSize: '0.8125rem' }} color="primary" onClick={() => props.get(item)}  >VIEW DETAILS</Button>
+                                                </Link>
+
                                             </CardActions>
                                         </Card>
 
@@ -132,18 +138,20 @@ const Status = props => {
 
 
 const mapStateToProps = state => ({
-    // return state;
     productData: state.productData,
+    productDataDetails: state.productDataDetails,
     categorieData: state.categorieData,
-    cartData: state.cartData
+    cartData: state.cartData,
 
 });
+
 
 const mapDespatchRoProps = (dispatch) => ({
     decrementInStock: (product) => dispatch(actions.decrementInStock(product)),
     addToCart: (product) => dispatch(actionsCart.addAction(product)),
     updateRemoteCart: (product) => dispatch(actionsCart.updateRemoteCart(product)),
-    getProduct: () => dispatch(actions.getRemoteProducts())
+    getProduct: () => dispatch(actions.getRemoteProducts()),
+    get: (product) => dispatch(actionsDetails.getActionProductsDetails(product))
 });
 
 

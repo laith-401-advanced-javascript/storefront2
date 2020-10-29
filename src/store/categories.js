@@ -15,7 +15,8 @@ export default (state = initialState, action) => {
         case 'GETCATEGORIES':
             // state.categories = [...payload.results]
             // return {...state};
-            return payload;
+            return  payload;
+
         case 'change':
             // console.log('pay',payload);
             state.activeCategory = payload;

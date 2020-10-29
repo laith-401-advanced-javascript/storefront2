@@ -1,6 +1,7 @@
 import superagent from 'superagent';
 let initialState = {
   cartItem: [],
+  drawer: false
 };
 
 
@@ -24,6 +25,10 @@ export default (state = initialState, action) => {
     case 'REMOVE':
       state.cartItem.splice(payload, 1);
       return { ...state  };
+
+      case 'TOOGLE-DRAWER': 
+        
+      return !state.drawer ;
 
     default:
       return state;
@@ -67,5 +72,12 @@ export const removeFromCart = productRemoveFromCart => {
   return {
     type: 'REMOVE',
     payload: productRemoveFromCart
+  }
+}
+
+export const toggleDrawer = toggle => {
+  return {
+    type: 'TOOGLE-DRAWER',
+    payload: toggle
   }
 }
