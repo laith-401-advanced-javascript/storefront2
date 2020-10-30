@@ -48,7 +48,8 @@ const ProductDetails = props => {
 
     useEffect(() => {
         props.give();
-    }, [props]);
+         // eslint-disable-next-line
+    }, []);
 
     const updateFunctions = element => {
         props.addToCart(element) //working

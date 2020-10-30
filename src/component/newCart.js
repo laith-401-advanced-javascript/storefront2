@@ -38,8 +38,8 @@ const Cart = props => {
 
     useEffect(() => {
         props.getCartAPI();
-
-    }, [props]);
+ // eslint-disable-next-line
+    }, []);
 
     console.log('Props in Cart >>', props);
 

@@ -37,11 +37,11 @@ const useStyles = makeStyles((theme) => ({
 const CheckoutList = props => {
   const { cartData } = props;
   const classes = useStyles();
-// eslint-disable-next-line
+
   useEffect(() => {
     props.getCartAPI();
-
-  }, [props]);
+     // eslint-disable-next-line
+  }, []);
 
   console.log(')))))))))))', props);
 
