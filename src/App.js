@@ -5,33 +5,42 @@ import Header from './component/header.js';
 import Footer from './component/footer.js';
 import Categories from './component/categories.js';
 import Products from './component/products.js';
-import Cart from './component/cart.js';
+import ProductsDetails from './component/productDetails';
+
+import Cart from './component/CheckoutList.js';
+import Checkout from './component/pages/checkout';
+
+import SampleCart from './component/newCart';
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-
 import './app.scss';
 
-class App extends React.Component {
-    render() {
 
-        return (
-            <BrowserRouter>
-                <Header />
-                <Switch>
-                    <Route exact path="/">
-                        <Categories />
-                        <Products />
-                    </Route>
+const App = props => {
 
-                    <Route exact path="/cart">
-                        <Cart />
-                    </Route>
+    return (
+        <BrowserRouter>
+            <Header />
+            <SampleCart />
+            <Switch>
+                <Route exact path="/">
+                    <Categories />
+                    <Products />
+                </Route>
+                
+                <Route exact path="/product">
+                    <ProductsDetails />
+                </Route>
 
-                </Switch>
-                <Footer />
-            </BrowserRouter >
-        )
-    }
+                <Route exact path="/cart"  component={Checkout}   />
+                    {/* <Cart /> */}
+                
+
+            </Switch>
+            <Footer />
+        </BrowserRouter >
+    )
+
 }
 
 export default App;

@@ -1,9 +1,8 @@
 /* eslint-disable no-duplicate-case */
 /* eslint-disable no-case-declarations */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { change } from '../store/categories.js';
-import { chooseList } from '../store/products.js';
+import * as actions from '../store/categories';
 import { Box, ButtonGroup, Button, CssBaseline } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles'
@@ -28,6 +27,10 @@ const useStyles = makeStyles((theme) => ({
 
 const Status = props => {
 
+    useEffect(() => {
+        props.get();
+    }, []);
+
     const classes = useStyles();
     return (
         <>
@@ -37,16 +40,15 @@ const Status = props => {
 
                 <ButtonGroup variant="text" color="primary" aria-label="text primary button group">
 
-                    {props.current.categories.map((item,idx) => (
+                    {props.categorieData.results.map((record, idx) => (
                         <Button key={idx} onClick={() => {
-                            props.change(item);
-                            props.chooseList(item);
+                            props.change(record.name)
+                    
+                        }}>
+                                {record.name}
+                         </Button>
+                    )) }
 
-                        }} >
-                            {item.name}
-
-                        </Button>
-                    ))}
                 </ButtonGroup>
             </Box>
 
@@ -54,11 +56,15 @@ const Status = props => {
     )
 }
 
-const mapStateToProps = state => {
-    return { current: state.activator };
-}
 
-const mapDispatchToProps = { change, chooseList }
+const mapStateToProps = state => ({
+    categorieData: state.categorieData
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    change:  (name) => dispatch(actions.change(name)),
+    get: () => dispatch(actions.getRemoteCategories())
+});
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(Status)

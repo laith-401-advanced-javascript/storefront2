@@ -1,54 +1,83 @@
-/* eslint-disable no-duplicate-case */
-/* eslint-disable no-case-declarations */
+import superagent from 'superagent';
 let initialState = {
-    cart: [],
-    count: 0
-}
+  cartItem: [],
+  drawer: false
+};
 
-// eslint-disable-next-line
+
 export default (state = initialState, action) => {
-    let { type, payload } = action;
-    let count = state.count;
-    let cart = state.cart;
+  let { type, payload } = action;
 
-    switch (type) {
-        case 'cart':
-            let length = state.cart.length;
-            payload = { ...payload, id: length + 1 } // this line say pring to me the same payload and add the id on it
+  switch (type) {
+    case 'GET-CART':
+      payload.results.forEach(element => {
+        // console.log('element >',element);
+        if(state.cartItem.length < 3){
+        state.cartItem.push(element)
+        }
+      });
+      return { ...state }
 
-            count = state.count + 1;
-            return { cart: [...state.cart, payload], count }
+    case 'ADD':
+      state.cartItem.push(payload);
+      return { ...state };
 
-        case 'removeFromCart':
+    case 'REMOVE':
+      state.cartItem.splice(payload, 1);
+      return { ...state  };
 
-            // eslint-disable-next-line
-            cart = cart.filter(item => {
-                if (item.id !== payload.id) {
-                    return item;
-                }
-            });
+      case 'TOOGLE-DRAWER': 
+        
+      return !state.drawer ;
 
-            count = state.count - 1;
-            return {  cart, count };
-
-        default:
-            return state;
-    }
-
+    default:
+      return state;
+  }
 }
 
 
-export const addToCart = (add) => {
-    return {
-        type: 'cart',
-        payload: add
-    }
+let api = 'https://todos-api1.herokuapp.com/api/v1/carts';
+export const getCartAPI = () => dispatch => {
+  return superagent.get(api)
+    .then(data => {
+      dispatch(getCartAction(data.body))
+    });
 }
 
-//action RemoveFrom Cart 
-export const removeFromCart = (remove) => {
-    return {
-        type: 'removeFromCart',
-        payload: remove
-    }
+export const createCart = (cartData) => dispatch => {
+  // console.log('cartData >>>',cartData);
+  return superagent.post(api).send(cartData).then()
+}
+
+
+export const updateRemoteCart = (cartData) => async dispatch => {
+  // console.log('cartData', cartData);
+  await superagent.put(`${api}/${cartData[0]._id}`).send(cartData);
+}
+
+export const getCartAction = payload => {
+  return {
+    type: 'GET-CART',
+    payload: payload
+  }
+}
+
+export const addAction = productAddedToCart => {
+  return {
+    type: 'ADD',
+    payload: productAddedToCart
+  }
+}
+export const removeFromCart = productRemoveFromCart => {
+  return {
+    type: 'REMOVE',
+    payload: productRemoveFromCart
+  }
+}
+
+export const toggleDrawer = toggle => {
+  return {
+    type: 'TOOGLE-DRAWER',
+    payload: toggle
+  }
 }
