@@ -3,52 +3,32 @@
 
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { CardMedia, Container, Grid, Card, CardContent, CardActions, Button, Typography } from '@material-ui/core';
+import { CardMedia, Container,  Card, CardContent, CardActions, Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { IconButton, Grid } from '@material-ui/core';
+import { List, ListItem, ListItemText } from '@material-ui/core';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 import * as actions from '../store/cart';
 import * as actionsProduct from '../store/products';
 
 
-
 const useStyles = makeStyles((theme) => ({
     '@global': {
         ul: {
+            background: '#f5f5f5',
+            border: '1px solid #f5f5f5',
+            listStyleType: 'none',
             margin: 0,
-            padding: 0,
-            listStyle: 'none',
+            padding: '1rem'
         },
     },
-    appBar: {
-        borderBottom: `1px solid ${theme.palette.divider}`,
-    },
-    toolbarTitle: {
-        flex: 1,
-    },
-    fullHeight: {
-        height: "100%"
-    },
-    card: {
-        margin: '1em',
-    },
-    media: {
-        height: 0,
-        paddingTop: '56.25%', // 16:9
-        borderTopLeftRadius: '5px',
-        borderTopRightRadius: '5px'
-    },
-    jss8: {
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        flexWrap: 'initial'
-    },
-    jss5: {
-        padding: '64px 0px 48px'
-    },
-    jss7: {
-        paddingTop: '24px',
-        paddingBottom: '24px'
+    'simpleCart': {
+        fontSize: '1.25rem',
+        position: 'fixed',
+        top: '4.5rem',
+        right: '1rem',
+        width: '200px',
     }
 }));
 
@@ -60,14 +40,13 @@ const Cart = props => {
         props.getCartAPI();
 
     }, []);
-    
+
     console.log('Props in Cart >>', props);
 
     const deleteProductsfromCart = (idx, element) => {
         props.removeFromCart(idx);
         props.incrementInStock(element);
     }
-
     const classes = useStyles();
 
     return (
@@ -75,7 +54,27 @@ const Cart = props => {
             {props.cartData.cartItem.map((element, idx) => {
                 return (
                     <>
-                        <Container key={idx} maxWidth="md" component="main">
+
+                        <Grid className={classes.simpleCart} item xs={4}>
+                            <Grid container justify="flex-end">
+                                <List>
+                                  
+                                        <ListItem key={idx}>
+                                            <ListItemText primary={element.name} />
+                                            <IconButton onClick={() => {
+                                                // restock(item);
+                                             
+                                                deleteProductsfromCart(idx , element)
+                                            }}>
+                                                <HighlightOffIcon />
+                                            </IconButton>
+                                        </ListItem>
+                                    
+                                </List>
+                            </Grid>
+                        </Grid>
+
+                        {/* <Container key={idx} maxWidth="md" component="main">
 
                             <Grid className={classes.jss7} container spacing={0} direction="row" justify="center" alignItems="center">
                                 <Grid className={classes.jss8} container item xs={12} sm={6} lg={2} >
@@ -101,7 +100,7 @@ const Cart = props => {
                                     </Card>
                                 </Grid>
                             </Grid>
-                        </Container>
+                        </Container> */}
 
                     </>
                 )

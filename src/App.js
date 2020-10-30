@@ -7,7 +7,11 @@ import Categories from './component/categories.js';
 import Products from './component/products.js';
 import ProductsDetails from './component/productDetails';
 
-import Cart from './component/cart.js';
+import Cart from './component/CheckoutList.js';
+import Checkout from './component/pages/checkout';
+
+import SampleCart from './component/newCart';
+
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import './app.scss';
 
@@ -17,6 +21,7 @@ const App = props => {
     return (
         <BrowserRouter>
             <Header />
+            <SampleCart />
             <Switch>
                 <Route exact path="/">
                     <Categories />
@@ -27,9 +32,9 @@ const App = props => {
                     <ProductsDetails />
                 </Route>
 
-                <Route exact path="/cart">
-                    <Cart />
-                </Route>
+                <Route exact path="/cart"  component={Checkout}   />
+                    {/* <Cart /> */}
+                
 
             </Switch>
             <Footer />
