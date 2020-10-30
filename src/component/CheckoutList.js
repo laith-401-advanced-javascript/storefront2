@@ -40,7 +40,7 @@ const CheckoutList = props => {
 
   useEffect(() => {
     props.getCartAPI();
-     // eslint-disable-next-line
+    // eslint-disable-next-line
   }, []);
 
   console.log(')))))))))))', props);
@@ -55,11 +55,7 @@ const CheckoutList = props => {
         {/* secondary={product.description} */}
         <ListItemText primary={product.name} />
         <Typography variant='body2'>
-          {new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD',
-          }).format(product.price)}{' '}
-          x {product.quantity} = {' '}
+
           <strong>
             {' '}
             {new Intl.NumberFormat('en-US', {
@@ -67,6 +63,7 @@ const CheckoutList = props => {
               currency: 'USD',
             }).format(product.price * product.quantity)}
           </strong>
+
         </Typography>
       </ListItem>,
     );
