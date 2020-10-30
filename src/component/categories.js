@@ -29,7 +29,8 @@ const Status = props => {
 
     useEffect(() => {
         props.get();
-    }, [props]);
+  // eslint-disable-next-line
+    }, []);
 
     const classes = useStyles();
     return (
