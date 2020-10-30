@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -48,7 +48,7 @@ const ProductDetails = props => {
 
     useEffect(() => {
         props.give();
-    }, []);
+    }, [props]);
 
     const updateFunctions = element => {
         props.addToCart(element) //working
@@ -112,7 +112,7 @@ const ProductDetails = props => {
                     {props.productDateDetails.description}
                 </Typography>
                 <Card className='card'>
-                    <img src={props.productDateDetails.img} className={classes.imgStyle} />
+                    <img src={props.productDateDetails.img} className={classes.imgStyle} alt="img" />
                     <CardContent justify="space-between">
                         <Grid container xs={12}>
                             <Grid xs={6}>

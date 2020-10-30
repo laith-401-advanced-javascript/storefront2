@@ -59,7 +59,7 @@ const Status = props => {
 
     useEffect(() => {
         props.getProduct();
-    }, []);
+    }, [props]);
 
     const updateFunctions = element => {
         props.addToCart(element) //working
@@ -68,7 +68,7 @@ const Status = props => {
     }
 
     const classes = useStyles();
-    console.log('propppps in p', props);
+    // console.log('propppps in p', props);
 
     return (
         <section className="product">
@@ -80,9 +80,9 @@ const Status = props => {
                     </Typography>
                 </Box>
 
-
+                {/* eslint-disable-next-line*/}
                 {props.productData.results.map((item, idx) => {
-                    console.log('item ><<<<', item);
+                    // console.log('item ><<<<', item);
                     if (item.category === props.categorieData.activeCategory) {
                         return (
 

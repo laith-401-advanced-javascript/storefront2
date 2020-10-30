@@ -3,7 +3,7 @@
 
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { CardMedia, Container,  Card, CardContent, CardActions, Button, Typography } from '@material-ui/core';
+// import { CardMedia, Container,  Card, CardContent, CardActions, Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { IconButton, Grid } from '@material-ui/core';
 import { List, ListItem, ListItemText } from '@material-ui/core';
@@ -39,7 +39,7 @@ const Cart = props => {
     useEffect(() => {
         props.getCartAPI();
 
-    }, []);
+    }, [props]);
 
     console.log('Props in Cart >>', props);
 
