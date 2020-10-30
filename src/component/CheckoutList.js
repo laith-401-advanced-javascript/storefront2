@@ -37,11 +37,11 @@ const useStyles = makeStyles((theme) => ({
 const CheckoutList = props => {
   const { cartData } = props;
   const classes = useStyles();
-
+// eslint-disable-next-line
   useEffect(() => {
     props.getCartAPI();
 
-  }, []);
+  }, [props]);
 
   console.log(')))))))))))', props);
 
@@ -74,10 +74,10 @@ const CheckoutList = props => {
 
   console.log('Props in Cart >>', props);
 
-  const deleteProductsfromCart = (idx, element) => {
-    props.removeFromCart(idx);
-    props.incrementInStock(element);
-  }
+  // const deleteProductsfromCart = (idx, element) => {
+  //   props.removeFromCart(idx);
+  //   props.incrementInStock(element);
+  // }
 
 
   return (

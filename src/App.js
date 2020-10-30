@@ -7,7 +7,6 @@ import Categories from './component/categories.js';
 import Products from './component/products.js';
 import ProductsDetails from './component/productDetails';
 
-import Cart from './component/CheckoutList.js';
 import Checkout from './component/pages/checkout';
 
 import SampleCart from './component/newCart';
@@ -27,14 +26,10 @@ const App = props => {
                     <Categories />
                     <Products />
                 </Route>
-                
                 <Route exact path="/product">
                     <ProductsDetails />
                 </Route>
-
-                <Route exact path="/cart"  component={Checkout}   />
-                    {/* <Cart /> */}
-                
+                <Route exact path="/cart"  component={Checkout}   />                
 
             </Switch>
             <Footer />

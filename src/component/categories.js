@@ -29,7 +29,7 @@ const Status = props => {
 
     useEffect(() => {
         props.get();
-    }, []);
+    }, [props]);
 
     const classes = useStyles();
     return (

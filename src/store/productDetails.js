@@ -4,7 +4,7 @@ let initialState = {
     products: {},
 }
 
-
+// eslint-disable-next-line
 export default (state = initialState, action) => {
     let { type, payload } = action;
 
